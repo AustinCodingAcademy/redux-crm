@@ -4,12 +4,19 @@ class Customers extends React.Component {
       searchTerm: ""
     }
     componentDidMount(){
-     
-        
+        let customers = store.getState().customers;
+        this.setState({customers: customers});
+        store.subscribe(()=> {
+            let searchTerm = store.getState().searchTerm;
+            customers = store.getState().customers;
+            this.setState({
+                customers: customers,
+                searchTerm: searchTerm
+            });
+        });
     }
     viewCustomer(cust){
- 
-
+        store.dispatch({type:"CHANGE_CURRENT_CUSTOMER", value:cust})
     }
     shouldInclude(customer){
         if(!this.state.searchTerm)
@@ -33,11 +40,14 @@ class Customers extends React.Component {
                                 <td>{cust.firstName}</td>
                                 <td>{cust.lastName}</td>
                                 <td>{cust.email}</td>
-                                <td><a href="#" onClick={
-                                    ()=>{
+                                <td>
+                                    <a href="#" onClick={()=>{
                                         this.viewCustomer(cust);
-                                    }
-                                }>View</a></td>
+                                    }}>View</a> |
+                                    <a href="#" onClick={()=>{
+                                        store.dispatch({type:"REMOVE_CUSTOMER", value:cust})
+                                    }}> Remove</a>
+                                </td>
                             </tr>);
                 }
                 
