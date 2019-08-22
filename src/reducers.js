@@ -1,5 +1,8 @@
 let id = 2;
 function customers(state = [], action) {
+  //if(state === undefined){
+  // state = [];
+  //}
   if (action.type === "ADD_CUSTOMER") {
     if (action.value.id) {
       const index = state.findIndex(c => c.id === action.value.id);
