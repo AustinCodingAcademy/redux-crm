@@ -8,10 +8,15 @@ let emptyCustomer = {
 
 class Customer extends React.Component {
     state = {
-        customer:  emptyCustomer
+        customer: emptyCustomer
     }
     componentDidMount(){
-
+      // let c = store.getStore().customers;
+      // this.setState({customers:c});
+      store.subscribe(() => {
+        let c = store.getStore().customers;
+        this.setState({customers:c});
+      });
     }
 
     render(){
@@ -46,10 +51,12 @@ class Customer extends React.Component {
                     }} type="phone" className="form-control" id="phone" placeholder="Enter phone"></input>
                 </div>
                 <button onClick={(e)=>{
-                    this.setState({customer:emptyCustomer});
+                    store.dispatch({type: "ADD_CUSTOMER", value: this.state.customer});
+                    store.dispatch({type: "CHANGE_CURRENT_CUSTOMER", value: this.state.customer});
+                    
                 }} type="button" className="btn btn-primary">Add</button>
                 <button onClick={(e)=>{
-             
+                    store.dispatch({type: "CHANGE_CURRENT_CUSTOMER", value: this.state.customer});
                     this.setState({customer:emptyCustomer});
                 }} type="button" className="btn btn-primary" style={{marginLeft:"10px"}}>Clear</button>
             </form>

@@ -1,11 +1,16 @@
 class Customers extends React.Component {
     state = {
-      customers: [],
-      searchTerm: ""
+        customer: [],
+        searchTerm: ""
     }
     componentDidMount(){
-     
-        
+      let custs = store.getStore().customers;
+      this.setState({customers:custs});
+      store.subscribe(() => {
+        let custs = store.getStore().customers;
+        const st = store.getState().searchTerm;
+        this.setState({customers:custs, searchTerm:st});
+      });
     }
     viewCustomer(cust){
  
