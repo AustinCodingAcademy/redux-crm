@@ -4,11 +4,18 @@ class Customers extends React.Component {
       searchTerm: ""
     }
     componentDidMount(){
-     
-        
+        const custs = store.getState().customers
+        this.setState({customers: custs});
+        const st = store.getState().st
+        this.setState({searchTerm: st})
+        store.subscribe(()=>{
+            const custs = store.getState().customers;
+            const st = store.getState().searchTerm;
+            this.setState({customers: custs, searchTerm: st})
+        })
     }
     viewCustomer(cust){
- 
+        store.dispatch({type:CHANGE_CURRENT_CUSTOMER, value:cust})
 
     }
     shouldInclude(customer){
