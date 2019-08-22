@@ -1,10 +1,10 @@
 //Redux.createStore
 
-let reducers = Redux.combineReducers({
-    customers,
-    // customer, searchBar
-})
+// let reducers = Redux.combineReducers({
+//     customers,
+//     // customer, searchBar
+// })
 
-store = Redux.createStore(reducers, state);
+let store = Redux.createStore(reducers, state);
 
 ReactDOM.render(<App />,document.getElementById("root"));

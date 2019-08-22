@@ -11,11 +11,11 @@ class Customer extends React.Component {
         customer: emptyCustomer
     }
     componentDidMount(){
-      // let c = store.getStore().customers;
-      // this.setState({customers:c});
+      let currentCustomer = store.getState().currentCustomer;
+      this.setState({customer:currentCustomer});
       store.subscribe(() => {
-        let c = store.getStore().customers;
-        this.setState({customers:c});
+        let currentCustomer = store.getState().currentCustomer;
+        this.setState({customer:currentCustomer});
       });
     }
 
@@ -52,11 +52,11 @@ class Customer extends React.Component {
                 </div>
                 <button onClick={(e)=>{
                     store.dispatch({type: "ADD_CUSTOMER", value: this.state.customer});
-                    store.dispatch({type: "CHANGE_CURRENT_CUSTOMER", value: this.state.customer});
-                    
+                    this.setState({customer:emptyCustomer});
                 }} type="button" className="btn btn-primary">Add</button>
+                
                 <button onClick={(e)=>{
-                    store.dispatch({type: "CHANGE_CURRENT_CUSTOMER", value: this.state.customer});
+                    store.dispatch({type: "CHANGE_CURRENT_CUSTOMER", value: emptyCustomer});
                     this.setState({customer:emptyCustomer});
                 }} type="button" className="btn btn-primary" style={{marginLeft:"10px"}}>Clear</button>
             </form>
