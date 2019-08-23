@@ -15,8 +15,7 @@ class Customers extends React.Component {
         })
     }
     viewCustomer(cust){
-        store.dispatch({type:CHANGE_CURRENT_CUSTOMER, value:cust})
-
+        store.dispatch({type:"CHANGE_CURRENT_CUSTOMER", value:cust})
     }
     shouldInclude(customer){
         if(!this.state.searchTerm)

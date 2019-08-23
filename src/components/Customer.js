@@ -54,7 +54,7 @@ class Customer extends React.Component {
               }} type="button" className="btn btn-primary">Add</button>
               <button onClick={(e)=>{
                 store.dispatch({type:"CHANGE_CURRENT_CUSTOMER", value: emptyCustomer})
-                  this.setState({customer:emptyCustomer});
+                this.setState({customer:emptyCustomer});
               }} type="button" className="btn btn-primary" style={{marginLeft:"10px"}}>Clear</button>
           </form>
       </div>
