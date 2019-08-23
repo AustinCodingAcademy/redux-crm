@@ -17,11 +17,14 @@ class Customers extends React.Component {
     viewCustomer(cust){
         store.dispatch({type:"CHANGE_CURRENT_CUSTOMER", value:cust})
     }
+    removeCustomer(cust){
+        store.dispatch({type:"REMOVE_CUSTOMER", value:cust})
+    }
     shouldInclude(customer){
         if(!this.state.searchTerm)
           return true;
-        if(customer.firstName.includes(this.state.searchTerm) ||
-            customer.lastName.includes(this.state.searchTerm) ||
+        if(customer.firstName.toLowerCase().includes(this.state.searchTerm) ||
+            customer.lastName.toLowerCase().includes(this.state.searchTerm) ||
             customer.email.includes(this.state.searchTerm) 
         ) {
             return true;
@@ -44,6 +47,11 @@ class Customers extends React.Component {
                                         this.viewCustomer(cust);
                                     }
                                 }>View</a></td>
+                                <td><button onClick = {
+                                    () =>{
+                                        this.removeCustomer(cust);
+                                    }
+                                }>X</button></td>
                             </tr>);
                 }
                 

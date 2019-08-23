@@ -1,14 +1,20 @@
-
 let id = 2;
 function customers(state = [],action){
     if(action.type === "ADD_CUSTOMER"){
-        if(action.value.id){
-            const index = state.findIndex((c)=>c.id === action.value.id);
-            state[index] = action.value;
-            return [...state];
-        }
         action.value.id = ++id;
         return [...state,action.value];
+    }
+    else if(action.type === "UPDATE_CUSTOMER"){
+        const index = state.findIndex((c)=>c.id === action.value.id);
+        state[index] = action.value;
+        return [...state];  
+    }
+    else if(action.type === "REMOVE_CUSTOMER"){
+        const index = state.findIndex((c)=>c.id === action.value.id);
+        const cust = state.filter((c)=>c.id != action.value.id);
+        // cust.slice(1);
+        console.log(cust);
+        return [...cust];
     }
     return state;
 }
