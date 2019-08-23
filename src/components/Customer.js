@@ -18,6 +18,40 @@ class Customer extends React.Component {
   }
 
   render() {
+    let button;
+    if (this.state.customer.id) {
+      button = (
+        <button
+          onClick={e => {
+            store.dispatch({
+              type: "UPDATE_CUSTOMER",
+              value: this.state.customer
+            });
+            this.setState({ customer: emptyCustomer });
+          }}
+          type="button"
+          className="btn btn-primary"
+        >
+          Update
+        </button>
+      );
+    } else {
+      button = (
+        <button
+          onClick={e => {
+            store.dispatch({
+              type: "ADD_CUSTOMER",
+              value: this.state.customer
+            });
+            this.setState({ customer: emptyCustomer });
+          }}
+          type="button"
+          className="btn btn-primary"
+        >
+          Add
+        </button>
+      );
+    }
     return (
       <div id="add-customer" className="page">
         <form>
@@ -84,19 +118,7 @@ class Customer extends React.Component {
               placeholder="Enter phone"
             />
           </div>
-          <button
-            onClick={e => {
-              store.dispatch({
-                type: "ADD_CUSTOMER",
-                value: this.state.customer
-              });
-              this.setState({ customer: emptyCustomer });
-            }}
-            type="button"
-            className="btn btn-primary"
-          >
-            Add
-          </button>
+          {button}
           <button
             // onClick={e => {
             //   this.setState({ customer: emptyCustomer });
