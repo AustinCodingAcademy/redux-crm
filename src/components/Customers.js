@@ -4,18 +4,27 @@ class Customers extends React.Component {
       searchTerm: ""
     }
     componentDidMount(){
-     
-        
+        const custs = store.getState().customers
+        this.setState({customers: custs});
+        const st = store.getState().st
+        this.setState({searchTerm: st})
+        store.subscribe(()=>{
+            const custs = store.getState().customers;
+            const st = store.getState().searchTerm;
+            this.setState({customers: custs, searchTerm: st})
+        })
     }
     viewCustomer(cust){
- 
-
+        store.dispatch({type:"CHANGE_CURRENT_CUSTOMER", value:cust})
+    }
+    removeCustomer(cust){
+        store.dispatch({type:"REMOVE_CUSTOMER", value:cust})
     }
     shouldInclude(customer){
         if(!this.state.searchTerm)
           return true;
-        if(customer.firstName.includes(this.state.searchTerm) ||
-            customer.lastName.includes(this.state.searchTerm) ||
+        if(customer.firstName.toLowerCase().includes(this.state.searchTerm) ||
+            customer.lastName.toLowerCase().includes(this.state.searchTerm) ||
             customer.email.includes(this.state.searchTerm) 
         ) {
             return true;
@@ -38,6 +47,11 @@ class Customers extends React.Component {
                                         this.viewCustomer(cust);
                                     }
                                 }>View</a></td>
+                                <td><button onClick = {
+                                    () =>{
+                                        this.removeCustomer(cust);
+                                    }
+                                }>X</button></td>
                             </tr>);
                 }
                 
