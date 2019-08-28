@@ -26,6 +26,5 @@ function searchTerm(state =  "",action){
 }
 
 
-reducers =  Redux.combineReducers({
-    customers,currentCustomer,searchTerm
-  })
+let reducers =  Redux.combineReducers({customers,currentCustomer,searchTerm})
+
