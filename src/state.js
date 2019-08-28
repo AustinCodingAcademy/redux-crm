@@ -1,4 +1,4 @@
-state = {
+const state = {
     searchTerm: "",
     customers: [  {
         "id": 1,

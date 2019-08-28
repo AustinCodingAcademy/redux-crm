@@ -11,7 +11,10 @@ class Customer extends React.Component {
         customer:  emptyCustomer
     }
     componentDidMount(){
-
+        store.subscribe(()=>{
+            let currentCustomer = store.getState().currentCustomer;
+            this.setState({customer:currentCustomer})
+        })
     }
 
     render(){
@@ -45,11 +48,15 @@ class Customer extends React.Component {
                       this.setState({customer: {...this.state.customer,phone: e.target.value} })
                     }} type="phone" className="form-control" id="phone" placeholder="Enter phone"></input>
                 </div>
+
                 <button onClick={(e)=>{
+                    store.dispatch({type:"ADD_CUSTOMER", value: this.state.customer})
+                    store.dispatch({type:"CHANGE_CURRENT_CUSTOMER", value: emptyCustomer})
                     this.setState({customer:emptyCustomer});
                 }} type="button" className="btn btn-primary">Add</button>
+
                 <button onClick={(e)=>{
-             
+                    store.dispatch({type:"CHANGE_CURRENT_CUSTOMER",value: emptyCustomer})
                     this.setState({customer:emptyCustomer});
                 }} type="button" className="btn btn-primary" style={{marginLeft:"10px"}}>Clear</button>
             </form>
